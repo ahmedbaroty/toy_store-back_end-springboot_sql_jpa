@@ -18,11 +18,11 @@ public class ProductService {
         return list;
     }
 
-    public List<Product> getAllProductsByCategoryId(Integer categoryId) {
-        List <Product> list = new ArrayList<>();
-        productRepository.findAllByCategoryId(categoryId).forEach(list::add);
-        return list;
-    }
+//    public List<Product> getAllProductsByCategoryId(Integer categoryId) {
+//        List <Product> list = new ArrayList<>();
+//        productRepository.findAllByCategoryId(categoryId).forEach(list::add);
+//        return list;
+//    }
 
     public Product getProduct(Integer productId) {
         return productRepository.findOne(productId);

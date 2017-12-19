@@ -1,9 +1,7 @@
 package com.orange.toystorebackend.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -11,7 +9,28 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer userId;
 
-    private String username , email , password , gender, question , answer;
+    @Column(name = "username" , nullable = false)
+    private String username;
+
+    @Column(name = "email" , unique = true , nullable = false)
+    private String email ;
+
+    @Column(name = "password" , nullable = false)
+    private String password ;
+
+    @Column(name = "gender" , nullable = false)
+    private String gender;
+
+    @Column(name = "question" , nullable = false)
+    private String question ;
+
+    @Column(name = "answer" , nullable = false)
+    private String answer;
+
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
+    private List<PurchaseOrder> orderList;
 
     public Integer getUserId() {
         return userId;
@@ -69,4 +88,11 @@ public class User {
         this.gender = gender;
     }
 
+    public List<PurchaseOrder> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<PurchaseOrder> orderList) {
+        this.orderList = orderList;
+    }
 }

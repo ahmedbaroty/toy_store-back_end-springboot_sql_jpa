@@ -1,21 +1,50 @@
 package com.orange.toystorebackend.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productId;
 
-    private Double price;
-    private Integer availableStock;
-    private String name , description;
-    private Integer categoryId;
+    @Column(name = "name")
+    private String name;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "available_stock")
+    private Integer availableStock;
+
+    @Column(name = "price")
+    private Double price;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
+    @ManyToMany(mappedBy = "productList")
+    private List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+
+
+
+    public Product() {
+    }
+
+    public Product(String name, String description, Integer availableStock, Double price) {
+        this.name = name;
+        this.description = description;
+        this.availableStock = availableStock;
+        this.price = price;
+    }
 
     public Integer getProductId() {
         return productId;
@@ -41,12 +70,12 @@ public class Product {
         this.description = description;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Integer getAvailableStock() {
+        return availableStock;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setAvailableStock(Integer availableStock) {
+        this.availableStock = availableStock;
     }
 
     public Double getPrice() {
@@ -57,11 +86,21 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getAvailableStock() {
-        return availableStock;
+    @JsonIgnore
+    public Category getCategory() {
+        return category;
     }
 
-    public void setAvailableStock(Integer availableStock) {
-        this.availableStock = availableStock;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @JsonIgnore
+    public List<PurchaseOrder> getPurchaseOrderList() {
+        return purchaseOrderList;
+    }
+
+    public void setPurchaseOrderList(List<PurchaseOrder> purchaseOrderList) {
+        this.purchaseOrderList = purchaseOrderList;
     }
 }

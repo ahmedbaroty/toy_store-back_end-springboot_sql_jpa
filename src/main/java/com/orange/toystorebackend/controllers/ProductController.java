@@ -17,10 +17,10 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @RequestMapping(method = RequestMethod.GET , value="/products/{categoryId}")
-    public List<Product> getAllProductsByCategoryId(@PathVariable Integer categoryId){
-        return productService.getAllProductsByCategoryId(categoryId);
-    }
+//    @RequestMapping(method = RequestMethod.GET , value="/products/{categoryId}")
+//    public List<Product> getAllProductsByCategoryId(@PathVariable Integer categoryId){
+//        return productService.getAllProductsByCategoryId(categoryId);
+//    }
 
     @RequestMapping(method=RequestMethod.GET , value="/products/product/{productId}")
     public Product getProduct(@PathVariable Integer productId) {
