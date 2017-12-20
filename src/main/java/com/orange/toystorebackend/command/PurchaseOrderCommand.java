@@ -1,6 +1,5 @@
 package com.orange.toystorebackend.command;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseOrderCommand {
@@ -15,6 +14,6 @@ public class PurchaseOrderCommand {
 
     public Integer userId;
     public String date;
-    public List<Integer> productList = new ArrayList<>();
+    public List<Integer> productList;
 
 }

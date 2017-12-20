@@ -43,4 +43,9 @@ public class UserController {
         updatedUser.setPassword(password);
         return updatedUser;
     }
+
+    @RequestMapping(method = RequestMethod.GET , value = "/user/{userId}")
+    public User getUser(@PathVariable Integer userId){
+        return userService.getUser(userId);
+    }
 }

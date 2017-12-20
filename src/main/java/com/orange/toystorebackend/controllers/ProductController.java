@@ -1,5 +1,7 @@
 package com.orange.toystorebackend.controllers;
 
+import com.orange.toystorebackend.command.ProductCommand;
+import com.orange.toystorebackend.command.ProductUpdateCommand;
 import com.orange.toystorebackend.entities.Product;
 import com.orange.toystorebackend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class ProductController {
 
     @CrossOrigin ("http://localhost:8080")
     @RequestMapping(method=RequestMethod.PUT , value="/products/update")
-    public Product updateProduct(@RequestBody Product product) {
+    public Product updateProduct(@RequestBody ProductUpdateCommand product) {
         return productService.updateProduct(product);
     }
 
@@ -40,7 +42,7 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST , value = "/products/add")
-    public Product addProduct(@RequestBody  Product product) {
+    public Product addProduct(@RequestBody ProductCommand product) {
         return productService.addProduct(product);
     }
 }

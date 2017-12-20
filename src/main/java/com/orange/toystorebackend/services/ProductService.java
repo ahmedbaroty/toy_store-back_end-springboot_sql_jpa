@@ -1,6 +1,10 @@
 package com.orange.toystorebackend.services;
 
+import com.orange.toystorebackend.command.ProductCommand;
+import com.orange.toystorebackend.command.ProductUpdateCommand;
+import com.orange.toystorebackend.entities.Category;
 import com.orange.toystorebackend.entities.Product;
+import com.orange.toystorebackend.repositories.CategoryRepository;
 import com.orange.toystorebackend.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,8 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
     public List<Product> getAllProducts() {
         List <Product> list = new ArrayList<>();
         productRepository.findAll().forEach(list::add);
@@ -28,12 +34,25 @@ public class ProductService {
         return productRepository.findOne(productId);
     }
 
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
+    public Product updateProduct(ProductUpdateCommand productCommand) {
+        Category category =  categoryRepository.findOne(productCommand.categoryId);
+        if(category != null) {
+            Product product = productCommand.getProduct();
+            product.setCategory(category);
+            return productRepository.save(product);
+        }
+        return null;
     }
 
-    public Product addProduct (Product product) {
-        return productRepository.save(product);
+    public Product addProduct (ProductCommand productCommand) {
+
+        Category category =  categoryRepository.findOne(productCommand.categoryId);
+        if(category != null) {
+            Product product = productCommand.getProduct();
+            product.setCategory(category);
+            return productRepository.save(product);
+        }
+        return null;
     }
 
     public void deleteProduct(Integer productId) {

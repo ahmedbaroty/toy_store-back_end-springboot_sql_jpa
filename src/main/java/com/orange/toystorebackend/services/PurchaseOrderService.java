@@ -10,6 +10,7 @@ import com.orange.toystorebackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,13 +32,11 @@ public class PurchaseOrderService {
     * */
 
     public PurchaseOrder addOrder(PurchaseOrderCommand purchaseOrderCommand) {
-
         User user = userRepository.findOne(purchaseOrderCommand.userId);
-
-        List<Product> productList = (List<Product>)productRepository.findAll(
-                purchaseOrderCommand.productList
-        );
-
+        List<Product> productList = new ArrayList<>();
+        for(Integer x : purchaseOrderCommand.productList){
+            productList.add(productRepository.findOne(x));
+        }
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setDate(purchaseOrderCommand.date);
         purchaseOrder.setProductList(productList);
