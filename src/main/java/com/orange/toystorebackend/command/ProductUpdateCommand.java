@@ -10,7 +10,19 @@ public class ProductUpdateCommand {
     public Double price;
     public Integer categoryId;
 
-    public Product getProduct() {
+    public ProductUpdateCommand(){}
+
+    public ProductUpdateCommand(Integer productId, String name, String description,
+                                Integer availableStock, Double price, Integer categoryId) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.availableStock = availableStock;
+        this.price = price;
+        this.categoryId = categoryId;
+    }
+
+    public Product toProduct() {
         Product p = new Product();
         p.setProductId(this.productId);
         p.setName(this.name);
@@ -18,6 +30,14 @@ public class ProductUpdateCommand {
         p.setPrice(this.price);
         p.setDescription(this.description);
         return p;
+    }
+
+    public static ProductUpdateCommand fromProduct(Product product) {
+        System.out.println(product.getCategory().getCategoryId());
+        return new ProductUpdateCommand(
+                product.getProductId() , product.getName() , product.getDescription()
+                ,product.getAvailableStock() , product.getPrice() , product.getCategory().getCategoryId()
+        );
     }
 }
 

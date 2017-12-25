@@ -18,10 +18,16 @@ public class ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    public List<Product> getAllProducts() {
-        List <Product> list = new ArrayList<>();
-        productRepository.findAll().forEach(list::add);
-        return list;
+
+    public List<ProductUpdateCommand> getAllProducts() {
+        List <Product> list = (List<Product>)productRepository.findAll();
+        List <ProductUpdateCommand> listTOReturn = new ArrayList<>();
+        for(Product p : list) {
+            listTOReturn.add(ProductUpdateCommand.fromProduct(p));
+        }
+        System.out.println(list.get(0).getCategory().getCategoryId());
+
+        return listTOReturn;
     }
 
 //    public List<Product> getAllProductsByCategoryId(Integer categoryId) {
@@ -30,14 +36,19 @@ public class ProductService {
 //        return list;
 //    }
 
-    public Product getProduct(Integer productId) {
-        return productRepository.findOne(productId);
+    public ProductUpdateCommand getProduct(Integer productId) {
+        Product p = productRepository.findOne(productId);
+
+        System.out.println(p.getCategory().getCategoryId()
+         + " " + p.getCategory().getName());
+
+        return ProductUpdateCommand.fromProduct(productRepository.findOne(productId));
     }
 
     public Product updateProduct(ProductUpdateCommand productCommand) {
         Category category =  categoryRepository.findOne(productCommand.categoryId);
         if(category != null) {
-            Product product = productCommand.getProduct();
+            Product product = productCommand.toProduct();
             product.setCategory(category);
             return productRepository.save(product);
         }

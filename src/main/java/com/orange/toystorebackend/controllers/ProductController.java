@@ -15,7 +15,7 @@ public class ProductController {
     private ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET , value="/products")
-    public List<Product> getAllProducts(){
+    public List<ProductUpdateCommand> getAllProducts(){
         return productService.getAllProducts();
     }
 
@@ -25,13 +25,23 @@ public class ProductController {
 //    }
 
     @RequestMapping(method=RequestMethod.GET , value="/products/product/{productId}")
-    public Product getProduct(@PathVariable Integer productId) {
+    public ProductUpdateCommand getProduct(@PathVariable Integer productId) {
         return productService.getProduct(productId);
     }
 
     @CrossOrigin ("http://localhost:8080")
     @RequestMapping(method=RequestMethod.PUT , value="/products/update")
     public Product updateProduct(@RequestBody ProductUpdateCommand product) {
+
+        System.out.println("----------------------");
+        System.out.println(product.productId);
+        System.out.println(product.name);
+        System.out.println(product.description);
+        System.out.println(product.availableStock);
+        System.out.println(product.price);
+        System.out.println(product.categoryId);
+        System.out.println("----------------------");
+
         return productService.updateProduct(product);
     }
 
