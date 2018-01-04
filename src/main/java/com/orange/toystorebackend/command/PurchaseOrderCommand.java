@@ -7,13 +7,12 @@ public class PurchaseOrderCommand {
     /* command purchase Order json:
     * {
     * userId ,
-    * date ,
     * productList [{productId}]
     * }
     * */
 
     public Integer userId;
-    public String date;
     public List<Integer> productList;
 
 }
+

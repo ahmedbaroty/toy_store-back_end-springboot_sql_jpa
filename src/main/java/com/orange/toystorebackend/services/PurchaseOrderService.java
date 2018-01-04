@@ -10,6 +10,8 @@ import com.orange.toystorebackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,10 @@ public class PurchaseOrderService {
         for(Integer x : purchaseOrderCommand.productList){
             productList.add(productRepository.findOne(x));
         }
+
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setDate(purchaseOrderCommand.date);
+        purchaseOrder.setLocalDate(LocalDate.now()+"");
+        purchaseOrder.setLocalTime(LocalTime.now()+"");
         purchaseOrder.setProductList(productList);
         purchaseOrder.setUser(user);
 

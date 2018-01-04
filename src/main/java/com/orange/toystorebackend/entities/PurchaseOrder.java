@@ -13,14 +13,15 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer purchaseOrderId;
 
-    @Column(name="date")
-    private String date;
+    @Column(name="local_date")
+    private String localDate;
+
+    @Column(name="local_time")
+    private String localTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-
-
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -32,23 +33,12 @@ public class PurchaseOrder {
     )
     private List<Product> productList = new ArrayList<>();
 
-
-
-
     public Integer getPurchaseOrderId() {
         return purchaseOrderId;
     }
 
     public void setPurchaseOrderId(Integer purchaseOrderId) {
         this.purchaseOrderId = purchaseOrderId;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @JsonIgnore
@@ -66,5 +56,21 @@ public class PurchaseOrder {
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public String getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(String localDate) {
+        this.localDate = localDate;
+    }
+
+    public String getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(String localTime) {
+        this.localTime = localTime;
     }
 }
